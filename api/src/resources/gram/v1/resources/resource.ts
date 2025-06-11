@@ -10,5 +10,16 @@ export function getResources(dal: DataAccessLayer) {
       res.json(resources);
       return;
     }
+    if (model) {
+      res.status(400).json({
+        error: "Cannot fetch resources: Model exists but lacks system-id",
+        modelId,
+      });
+      return;
+    }
+    res.status(404).json({
+      error: "Model not found",
+      modelId,
+    });
   };
 }
